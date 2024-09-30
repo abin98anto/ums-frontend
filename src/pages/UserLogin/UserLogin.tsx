@@ -47,11 +47,9 @@ const UserLogin = () => {
         );
 
         if (response) {
-          toast.success("Sign up successful!");
           navigate("/profile");
         }
       } else {
-        // Handle sign in
         const response = await axios.post(
           "http://localhost:3000/login",
           {
@@ -63,7 +61,6 @@ const UserLogin = () => {
 
         if (response.data?.accessToken) {
           localStorage.setItem("accessToken", response.data.accessToken);
-          toast.success("Login successful!");
           navigate("/profile");
         } else {
           toast.error("Login failed, please try again.");
@@ -74,7 +71,7 @@ const UserLogin = () => {
         if (error.response) {
           console.error("Response error:", error.response.data);
           toast.error(
-            `Error: ${error.response.data.message || "Unknown error"}`
+            `${error.response.data.message || "Unknown error"}`
           );
         } else if (error.request) {
           console.error("No response:", error.request);
@@ -105,7 +102,6 @@ const UserLogin = () => {
       const imageUrl = uploadRes.data.secure_url;
 
       setValue("profileImage", imageUrl);
-      toast.success("Image uploaded successfully!");
     } catch (error) {
       toast.error("Error uploading image to Cloudinary");
       console.error("Error uploading image to Cloudinary", error);
@@ -211,7 +207,6 @@ const UserLogin = () => {
         </div>
       </div>
 
-      {/* Toast Container */}
       <ToastContainer />
     </div>
   );
