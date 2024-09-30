@@ -1,9 +1,10 @@
 import "./UserLogin.css";
-
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface FormInputs {
   name: string;
@@ -27,26 +28,65 @@ const UserLogin = () => {
 
   // Function to handle form submission
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
-    if (signState === "Sign Up") {
-      if (data.password !== data.confirmPassword) {
-        alert("Passwords do not match!");
-        return;
-      }
+    try {
+      if (signState === "Sign Up") {
+        if (data.password !== data.confirmPassword) {
+          toast.error("Passwords do not match!");
+          return;
+        }
 
-      try {
-        const response = await axios.post("http://localhost:3000/register", {
-          name: data.name,
-          email: data.email,
-          password: data.password,
-          profileImage: data.profileImage,
-        });
+        const response = await axios.post(
+          "http://localhost:3000/register",
+          {
+            name: data.name,
+            email: data.email,
+            password: data.password,
+            profileImage: data.profileImage,
+          },
+          { withCredentials: true }
+        );
 
-        if (response) navigate("/profile");
-      } catch (error) {
-        console.error("Error sending data to backend", error);
+        if (response) {
+          toast.success("Sign up successful!");
+          navigate("/profile");
+        }
+      } else {
+        // Handle sign in
+        const response = await axios.post(
+          "http://localhost:3000/login",
+          {
+            email: data.email,
+            password: data.password,
+          },
+          { withCredentials: true }
+        );
+
+        if (response.data?.accessToken) {
+          localStorage.setItem("accessToken", response.data.accessToken);
+          toast.success("Login successful!");
+          navigate("/profile");
+        } else {
+          toast.error("Login failed, please try again.");
+        }
       }
-    } else {
-      // Handle sign in logic
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (error.response) {
+          console.error("Response error:", error.response.data);
+          toast.error(
+            `Error: ${error.response.data.message || "Unknown error"}`
+          );
+        } else if (error.request) {
+          console.error("No response:", error.request);
+          toast.error("No response from the server.");
+        } else {
+          console.error("Axios error:", error.message);
+          toast.error(`Error: ${error.message}`);
+        }
+      } else {
+        console.error("Unexpected error:", error);
+        toast.error("An unexpected error occurred.");
+      }
     }
   };
 
@@ -65,8 +105,9 @@ const UserLogin = () => {
       const imageUrl = uploadRes.data.secure_url;
 
       setValue("profileImage", imageUrl);
-      console.log("Image uploaded successfully!");
+      toast.success("Image uploaded successfully!");
     } catch (error) {
+      toast.error("Error uploading image to Cloudinary");
       console.error("Error uploading image to Cloudinary", error);
     }
   };
@@ -169,6 +210,9 @@ const UserLogin = () => {
           )}
         </div>
       </div>
+
+      {/* Toast Container */}
+      <ToastContainer />
     </div>
   );
 };
