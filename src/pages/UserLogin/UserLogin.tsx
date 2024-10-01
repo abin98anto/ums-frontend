@@ -6,6 +6,9 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import { useDispatch } from "react-redux";
+import { setUser } from "../../utils/userSlice";
+
 interface FormInputs {
   name: string;
   email: string;
@@ -15,6 +18,8 @@ interface FormInputs {
 }
 
 const UserLogin = () => {
+  const dispatch = useDispatch();
+
   const {
     register,
     handleSubmit,
@@ -47,6 +52,8 @@ const UserLogin = () => {
         );
 
         if (response) {
+          const { id, name, email, accessToken } = response.data;
+          dispatch(setUser({ id, name, email, accessToken }));
           navigate("/profile");
         }
       } else {
