@@ -70,9 +70,7 @@ const UserLogin = () => {
       if (axios.isAxiosError(error)) {
         if (error.response) {
           console.error("Response error:", error.response.data);
-          toast.error(
-            `${error.response.data.message || "Unknown error"}`
-          );
+          toast.error(`${error.response.data.message || "Unknown error"}`);
         } else if (error.request) {
           console.error("No response:", error.request);
           toast.error("No response from the server.");
@@ -116,7 +114,7 @@ const UserLogin = () => {
   return (
     <div className="login">
       <div className="login-form">
-        <img src="/vite.svg" alt="logo" className="login-logo" />
+        <img src="/vite.svg" alt="logo" className="logo" />
         <h1>{signState}</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
           {signState === "Sign Up" && (
@@ -204,6 +202,13 @@ const UserLogin = () => {
               <span onClick={() => handleFormSwitch("Sign In")}>Login</span>
             </p>
           )}
+        </div>
+
+        <div className="user-links">
+          <div className="user-pages" onClick={() => navigate("/admin")}>
+            <p>Admin Side</p>
+            <img src="/right-arrow.svg" className="arrow" alt="right-arrow" />
+          </div>
         </div>
       </div>
 
