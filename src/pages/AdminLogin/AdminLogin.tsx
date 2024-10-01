@@ -82,6 +82,12 @@ const UserLogin = () => {
 
           <button type="submit">Login</button>
         </form>
+        <div className="links">
+          <div className="pages" onClick={() => navigate("/")}>
+            <img src="/left-arrow.svg" className="arrow" alt="left-arrow" />
+            <p>User Side</p>
+          </div>
+        </div>
       </div>
       <ToastContainer />
     </div>

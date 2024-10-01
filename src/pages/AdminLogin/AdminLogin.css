@@ -58,3 +58,25 @@
   .admin-login-form button:hover {
     background: #4359ff;
   }
+
+  .links {
+    color: #333;
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .links img {
+    height: 40px;
+  }
+
+  .pages {
+    display: flex;
+    align-items: center;
+  }
+
+  .pages :hover {
+    filter: drop-shadow(#ff0000aa);
+    cursor: pointer;
+    font-weight: 600;
+  }

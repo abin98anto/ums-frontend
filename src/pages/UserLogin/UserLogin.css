@@ -213,3 +213,27 @@
   height: 18px;
   margin-top: 5px;
 }
+
+.user-links {
+  color: #333;
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-between;
+  justify-content: flex-end;
+}
+
+.user-links img {
+  height: 40px;
+}
+
+.user-pages {
+  color: white;
+  display: flex;
+  align-items: center;
+}
+
+.user-pages :hover {
+  filter: drop-shadow(#ff0000aa);
+  cursor: pointer;
+  font-weight: 600;
+}
