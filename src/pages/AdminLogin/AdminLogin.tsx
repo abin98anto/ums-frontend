@@ -49,10 +49,10 @@ const UserLogin = () => {
   };
 
   return (
-    <div className="login">
-      <div className="login-form">
-        <img src="/vite.svg" alt="logo" className="login-logo" />
-        <h1>Login</h1>
+    <div className="admin-login">
+      <div className="admin-login-form">
+        <img src="/admin.svg" alt="admin-logo" className="logo" />
+        <h1>Admin Login</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
           <input
             {...register("email", {

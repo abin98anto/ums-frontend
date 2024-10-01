@@ -116,7 +116,7 @@ const UserLogin = () => {
   return (
     <div className="login">
       <div className="login-form">
-        <img src="/vite.svg" alt="logo" className="login-logo" />
+        <img src="/vite.svg" alt="logo" className="logo" />
         <h1>{signState}</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
           {signState === "Sign Up" && (
