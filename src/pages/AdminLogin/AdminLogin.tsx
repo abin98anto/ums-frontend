@@ -27,7 +27,7 @@ const UserLogin = () => {
       });
 
       if (response.status === 200) {
-        navigate("/profile");
+        navigate("/admin/dashborad");
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {
