@@ -67,6 +67,17 @@ const UserLogin = () => {
         );
 
         if (response.data?.accessToken) {
+          const user = {
+            id: "response.data.userId",
+            name: response.data.user.name,
+            email: response.data.user.email,
+            accessToken: response.data.accessToken,
+          };
+
+          console.log("rakama", response);
+          // const { id, name, email, accessToken } = response.data;
+          // dispatch(setUser({ id, name, email, accessToken }));
+          dispatch(setUser(user));
           localStorage.setItem("accessToken", response.data.accessToken);
           navigate("/profile");
         } else {
